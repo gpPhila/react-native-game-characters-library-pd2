@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, Pressable } from 'react-native';
 import { styles } from '../styles';
 import characters from '../data/characters';
+import CharacterCard from '../components/CharacterCard';
 
 export default function CharacterListScreen({route, navigation}) {
   const selectedRegion = route.params.region;
@@ -23,19 +24,15 @@ export default function CharacterListScreen({route, navigation}) {
       <FlatList
         data={regionCharacters}
         keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <Pressable 
-            style={styles.card}
+        renderItem={({ item }) => (
+          <CharacterCard
+            character={item}
             onPress={() =>
               navigation.navigate('CharacterDetails', {
                 characterId: item.id,
               })
             }
-          >
-            <Text style={styles.cardTitle}>{item.name}</Text>
-            <Text>Element: {item.element}</Text>
-            <Text>Weapon: {item.weapon}</Text>
-          </Pressable>
+          />
         )}
         ListEmptyComponent={
           <Text>No characters added for this region yet.</Text>
