@@ -1,32 +1,46 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import { styles } from '../styles';
+import characters from '../data/characters';
 
 export default function CharacterListScreen({route, navigation}) {
-  const categoryType = route.params.categoryType;
+  const selectedRegion = route.params.region;
+
+  const regionCharacters =
+    selectedRegion === 'All characters'
+      ? characters
+      : characters.filter(
+          character => character.region === selectedRegion
+        );
 
   return (
     <View style = {styles.contrainer}>
-      <Text style={styles.title}>Character Categories</Text>
+      <Text style={styles.title}>{selectedRegion}</Text>
       <Text style={styles.description}>
-        Browsing by: {categoryType}
+        Characters from {selectedRegion}
       </Text>
 
-      <Text style={styles.description}>
-        blah blah
-      </Text>
-
-      <Pressable
-        style={styles.card}
-        onPress={() =>
-          navigation.navigate('CharacterDetails', {
-            characterName: 'Keqing',
-          })
+      <FlatList
+        data={regionCharacters}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => (
+          <Pressable 
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate('CharacterDetails', {
+                characterId: item.id,
+              })
+            }
+          >
+            <Text style={styles.cardTitle}>{item.name}</Text>
+            <Text>Element: {item.element}</Text>
+            <Text>Weapon: {item.weapon}</Text>
+          </Pressable>
+        )}
+        ListEmptyComponent={
+          <Text>No characters added for this region yet.</Text>
         }
-      >
-        <Text style={styles.cardTitle}>Example: Keqing</Text>
-        <Text>Tap to open the details screen</Text>
-      </Pressable>
+      />
     </View>
   )
 }

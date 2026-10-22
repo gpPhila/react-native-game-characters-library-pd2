@@ -12,16 +12,37 @@ export default function CategoriesScreen({navigation}) {
 
       <Pressable
       style={styles.card}
-      onPress={() => navigation.navigate('CharacterList', {categoryType: 'fontaine'})}
+      onPress={() => navigation.navigate('CharacterList', {region: 'Inazuma'})}
+      >
+        <Text style={styles.cardTitle}>Inazuma</Text>
+      </Pressable>
+
+      <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('CharacterList', {region: 'Fontaine'})}
       >
         <Text style={styles.cardTitle}>Fontaine</Text>
       </Pressable>
 
       <Pressable
       style={styles.card}
-      onPress={() => navigation.navigate('CharacterList', {categoryType: 'nodkrai'})}
+      onPress={() => navigation.navigate('CharacterList', {region: 'Nod-Krai'})}
       >
         <Text style={styles.cardTitle}>Nod-Krai</Text>
+      </Pressable>
+
+      <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('CharacterList', {region: 'Snezhnaya'})}
+      >
+        <Text style={styles.cardTitle}>Snezhnaya</Text>
+      </Pressable>
+
+      <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('CharacterList', {region: 'All characters'})}
+      >
+        <Text style={styles.cardTitle}>All characters</Text>
       </Pressable>
     </View>
   )
